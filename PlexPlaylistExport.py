@@ -17,6 +17,7 @@ Requirements
 import argparse
 import requests
 import plexapi
+import sys
 import codecs
 from plexapi.server import PlexServer
 from unidecode import unidecode
@@ -55,32 +56,33 @@ def list_playlists(options: ExportOptions):
     """ Lists all 'audio' playlists on the given Plex server
     """
 
-    print('Connecting to plex...', end='')
+    print('Connecting to plex...', end='', file=sys.stderr, flush=True)
     try:
         plex = PlexServer(options.host, options.token)
     except (plexapi.exceptions.Unauthorized, requests.exceptions.ConnectionError):
-        print(' failed')
+        print(' failed', file=sys.stderr, flush=True)
         return
-    print(' done')
+    print(' done', file=sys.stderr, flush=True)
     
     if options.user != None:
-        print('Switching to managed account %s...' % options.user, end='')
+        print('Switching to managed account %s...' % options.user, end='', file=sys.stderr, flush=True)
         try:
             plex = plex.switchUser(options.user)
         except (plexapi.exceptions.Unauthorized, requests.exceptions.ConnectionError):
-            print(' failed')
+            print(' failed', file=sys.stderr, flush=True)
             return
-        print(' done')
+        print(' done', file=sys.stderr, flush=True)
 
-    print('Getting playlists... ', end='')
+    print('Getting playlists... ', end='', file=sys.stderr, flush=True)
     playlists = plex.playlists()
-    print(' done')
+    print(' done', file=sys.stderr, flush=True)
 
-    print('')
-    print('Supply any of the following playlists to --playlist <playlist>:')
+    print('', file=sys.stderr, flush=True)
+    print('Supply any of the following playlists to --playlist <playlist>:', file=sys.stderr, flush=True)
     for item in playlists:
         if (item.playlistType == 'audio'):
-            print('\t%s' % item.title)
+            # Print the playlist titles to stdout so they can be captured separately from the status outputs
+            print('%s' % item.title, file=sys.stdout, flush=True)
 
 def export_playlist(options: ExportOptions):
     """ Exports a given playlist from the specified Plex server in M3U format.
