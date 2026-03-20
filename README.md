@@ -79,10 +79,10 @@ This will output all available playlists for export.
 To export a specific playlist you need to supply it's name to the script.
 
 ```bash
-python3 PlexPlaylistExport.py --host <baseurl> --token <yourtoken> --playlist <yourplaylist> --plex-music-root-dir '/music' --replace-with-dir '..'
+python3 PlexPlaylistExport.py --host <baseurl> --token <yourtoken> --playlist <yourplaylist> --plex-music-root '/music' --replace-with-dir '..'
 ```
 
-So you might wonder what is `--plex-music-root-dir` and `--replace-with-dir`.
+So you might wonder what is `--plex-music-root` and `--replace-with-dir`.
 The first one is the root path to the music library in your Plex environment. Let's assume you have your music in Plex setup such
 that everything is mounted under the `/music` directory. Below this you might have `/music/beets/<artist>/<album>/...`. So a typical path
 to a file in your Plex environment might look like `/music/beets/<artist>/<album>/<title>.ext`.
