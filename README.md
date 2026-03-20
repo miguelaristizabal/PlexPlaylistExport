@@ -107,12 +107,20 @@ python3 PlexPlaylistExport.py --host <baseurl> --token <yourtoken> --all --plex-
 This avoids shell pipelines and exports every audio playlist directly from Plex. Output filenames are sanitized as needed so titles
 with characters that are invalid in Windows filenames can still be exported successfully.
 
+If you want the exported playlists written somewhere specific, add `--output-dir <path>` to either the single-playlist or `--all`
+command.
+
+For devices that only need plain relative paths, add `--walkman`. This removes all `#EXT...` comment lines and strips the
+`--plex-music-root` prefix from each media path so the playlist only contains relative file entries.
+
 ### Optional arguments
 
 The following optional arguments can be supplied when combined with the `--playlist` argument:
 
 - `--write-album`: Outputs album information in `#EXTALB` lines in the M3U.
 - `--write-album-artist`: Outputs album artist information in `#EXTART` lines in the M3U.
+- `--output-dir <path>`: Writes exported playlists to the specified directory instead of the current working directory.
+- `--walkman`: Removes all comment lines and writes paths relative to `--plex-music-root`.
 - `--asciify`: You might have to deal with a device that is not capable of displaying Unicode characters or just simply ignores lines that
   contain Unicode characters alltogether (such as my car's infotainment system). In this case you might want to try this option which removes
   all Unicode characters in `#EXTINF`, `#EXTALB` and `#EXTART` lines. *It does however not ASCII-fy your paths*. If you need to do this I
