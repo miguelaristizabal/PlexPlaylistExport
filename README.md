@@ -96,6 +96,17 @@ Executing this command will create a file named `<yourplaylist>.m3u` in the work
 *Now the M3U playlist might not be useful in this location and it is up to you to place it somewhere where the paths specified in it
 get a meaning.*
 
+### Exporting all audio playlists
+
+If you want to export every audio playlist in one run, use:
+
+```bash
+python3 PlexPlaylistExport.py --host <baseurl> --token <yourtoken> --all --plex-music-root '/music' --replace-with-dir '..'
+```
+
+This avoids shell pipelines and exports every audio playlist directly from Plex. Output filenames are sanitized as needed so titles
+with characters that are invalid in Windows filenames can still be exported successfully.
+
 ### Optional arguments
 
 The following optional arguments can be supplied when combined with the `--playlist` argument:
